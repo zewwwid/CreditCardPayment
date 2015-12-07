@@ -35,3 +35,13 @@
 
 # Composer PHAR
 /composer.phar
+/nbproject/private/
+
+# NetBeans
+nbproject/
+build/
+nbbuild/
+dist/
+nbdist/
+nbactions.xml
+.nb-gradle/
