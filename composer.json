@@ -23,7 +23,8 @@
         "incenteev/composer-parameter-handler": "^2.0",
         "twitter/bootstrap": "^3.3",
         "symfony/assetic-bundle": "^2.7",
-        "leafo/lessphp": "^0.5.0"
+        "leafo/lessphp": "^0.5.0",
+        "components/jquery": "^2.1"
     },
     "require-dev": {
         "sensio/generator-bundle": "^3.0",
