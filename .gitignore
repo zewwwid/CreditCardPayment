@@ -45,3 +45,9 @@ dist/
 nbdist/
 nbactions.xml
 .nb-gradle/
+
+# assetic
+web/assetic/
+web/css/
+web/fonts/
+web/js/
