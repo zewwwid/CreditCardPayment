@@ -1,0 +1,71 @@
+{% block text_widget %}
+    <input type="text" class="form-control" {{ block('widget_attributes') }} value="{{ value }}" />
+{% endblock %}
+
+
+{% block textarea_widget %}
+{% spaceless %}
+    <textarea {{ block('widget_attributes') }} class="ckeditor">{{ value }}</textarea>
+{% endspaceless %}
+{% endblock textarea_widget %}
+
+{% block form_errors %}
+{% spaceless %}
+	<span style="color: red;" id="{{ form.vars.id }}_error">
+    {% if errors|length > 0 %}
+    	{% set len = errors|length %}
+    	{% set i = 0 %}
+        {% for error in errors %}
+        	{% set i = i + 1 %}
+        	{% if i < len %}
+            	{{ error.message }}<br />
+            {% else %}
+            	{{ error.message }}<br />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    </span>
+{% endspaceless %}
+{% endblock form_errors %}
+
+{% block form_row %}
+{% spaceless %}
+    <tr>
+        <th width="130">
+            {{ form_label(form) }}
+        </th>
+        <td width="710">
+        	<div style="width: 710px;">
+        		{{ form_errors(form) }}
+            	{{ form_widget(form) }}
+            </div>
+        </td>
+    </tr>
+{% endspaceless %}
+{% endblock form_row %}
+
+{% block hidden_row %}
+{% spaceless %}
+    <tr style="display: none">
+        <td colspan="2">
+            {{ form_widget(form) }}
+        </td>
+    </tr>
+{% endspaceless %}
+{% endblock hidden_row %}
+
+{% block form_widget_compound %}
+{% spaceless %}
+    <table class="bordered">
+        {% if form.parent is empty and errors|length > 0 %}
+        <tr>
+            <td colspan="2">
+                {{ form_errors(form) }}
+            </td>
+        </tr>
+        {% endif %}
+        {{ block('form_rows') }}
+        {{ form_rest(form) }}
+    </table>
+{% endspaceless %}
+{% endblock form_widget_compound %}

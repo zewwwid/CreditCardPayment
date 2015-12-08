@@ -2,7 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8" />
-        <title>{% block title %}Welcome!{% endblock %}</title>
+        <title>{% block title %}credit-card-payment{% endblock %}</title>
                 
         {% stylesheets '@bootstrap_css' combine=true %}
             <link href="{{ asset_url }}" type="text/css" rel="stylesheet" />
@@ -11,7 +11,57 @@
         <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}" />
     </head>
     <body>
-        {% block body %}{% endblock %}
+        <style>
+            .content {
+                padding: 50px;
+            }
+            
+            .code input,
+            .summa input,
+            .currency select
+            {
+                width: 200px;
+            }
+            
+            .cardNumber, .cardOwner {               
+                width: 90%;
+                margin: 0 auto;
+            }
+            
+            .expirationDate {
+                margin-left: 50px;
+                margin-bottom: 0;
+            }
+            .expirationDate input {
+                width: 60px;
+                
+                display: inline;
+                
+            }
+            
+            .front {
+                padding-top: 30px;
+                width: 300px; height: auto; border: solid 1px; border-radius: 5px;
+            }
+        </style>
+        <div class="container-narrow" style="margin: 0 auto; max-width: 700px;">
+            <div class="masthead">
+                <ul class="nav nav-pills pull-right">
+                    <li class="active"><a href="#">Купить</a></li>
+                    <li><a href="#">Список покупок</a></li>
+                </ul>
+                <h3 class="muted">credit-card-payment</h3>
+            </div>
+            <hr>
+            <div class="jumbotron content">
+                {% block body %}{% endblock %}
+            </div>
+        
+            <hr>
+            <div class="footer">
+                <p>© Шумаков Сергей 2015</p>
+            </div>
+        </div>
         {% javascripts '@jquery' '@bootstrap_js' %}
             <script type="text/javascript" src="{{ asset_url }}"></script>
         {% endjavascripts %}

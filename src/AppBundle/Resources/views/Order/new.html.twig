@@ -1,0 +1,76 @@
+    {% form_theme form 'AppBundle:Order:fields.html.twig' %}
+    	
+    {% extends '::base.html.twig' %}
+	
+    {% block body -%}   
+
+    <form action="{{ path('order_new') }}" method="post" {#{ form_enctype(form) }#} id="form" role="form" novalidate>
+
+        <div class="form-group code">
+            {{ form_label(form.code) }}
+            {{ form_widget(form.code, { 'attr': {'class': 'form-control', 'placeholder' : 'Введите yомер заказа'} }) }}
+            <div class="errors">
+                {{ form_errors(form.code) }}
+            </div>
+        </div>
+
+        <div class="form-group summa">
+            {{ form_label(form.summa) }}
+            {{ form_widget(form.summa, { 'attr': {'class': 'form-control', 'placeholder' : 'Введите сумму заказа'} }) }}
+            <div class="errors">
+                {{ form_errors(form.summa) }}
+            </div>
+        </div>
+
+        <div class="form-group currency">
+            {{ form_label(form.currency) }}
+            {{ form_widget(form.currency, { 'attr': {'class': 'form-control'} }) }}
+            <div class="errors">
+                {{ form_errors(form.currency) }}
+            </div>
+        </div>
+
+        <div class="form-group front" style="">
+            <div class="cardNumber">
+                {{ form_label(form.cardNumber) }}<br />
+                {{ form_widget(form.cardNumber, { 'attr': {'class': 'form-control'} }) }}
+                <div class="errors">
+                    {{ form_errors(form.cardNumber) }}
+                </div>
+            </div>
+
+            <div class="form-group expirationDate">
+                <label>Срок годности</label><br />
+                {{ form_widget(form.cardMonth, { 'attr': {'class': 'form-control', 'placeholder' : 'ММ'} }) }}
+                {{ form_widget(form.cardYear, { 'attr': {'class': 'form-control', 'placeholder' : 'ГГ'} }) }}
+                <div class="form-group errors">
+                    {{ form_errors(form.cardMonth) }}
+                </div>
+                <div class="form-group errors">
+                    {{ form_errors(form.cardYear) }}
+                </div>
+            </div>
+
+            <div class="form-group cardOwner">
+                {{ form_label(form.cardOwner) }}<br />
+                {{ form_widget(form.cardOwner, { 'attr': {'class': 'form-control'} }) }}
+                <div class="errors">
+                    {{ form_errors(form.cardOwner) }}
+                </div>
+            </div>            
+        </div>
+
+        <div class="form-group cvv">
+            {{ form_label(form.cvv) }}<br />
+            {{ form_widget(form.cvv, { 'attr': {'class': 'form-control'} }) }}
+            <div class="errors">
+                {{ form_errors(form.cvv) }}
+            </div>
+        </div>   
+
+        <div class="form-group">
+            {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary'} }) }}
+        </div>
+    </form>
+    
+    {% endblock %}
