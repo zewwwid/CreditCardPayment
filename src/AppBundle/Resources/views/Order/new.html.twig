@@ -2,75 +2,307 @@
     	
     {% extends '::base.html.twig' %}
 	
-    {% block body -%}   
-
-    <form action="{{ path('order_new') }}" method="post" {#{ form_enctype(form) }#} id="form" role="form" novalidate>
-
-        <div class="form-group code">
-            {{ form_label(form.code) }}
-            {{ form_widget(form.code, { 'attr': {'class': 'form-control', 'placeholder' : 'Введите yомер заказа'} }) }}
-            <div class="errors">
-                {{ form_errors(form.code) }}
-            </div>
-        </div>
-
-        <div class="form-group summa">
-            {{ form_label(form.summa) }}
-            {{ form_widget(form.summa, { 'attr': {'class': 'form-control', 'placeholder' : 'Введите сумму заказа'} }) }}
-            <div class="errors">
-                {{ form_errors(form.summa) }}
-            </div>
-        </div>
-
-        <div class="form-group currency">
-            {{ form_label(form.currency) }}
-            {{ form_widget(form.currency, { 'attr': {'class': 'form-control'} }) }}
-            <div class="errors">
-                {{ form_errors(form.currency) }}
-            </div>
-        </div>
-
-        <div class="form-group front" style="">
-            <div class="cardNumber">
-                {{ form_label(form.cardNumber) }}<br />
-                {{ form_widget(form.cardNumber, { 'attr': {'class': 'form-control'} }) }}
+    {% block menu %}
+        <li class="active"><a href="{{ path('order_new') }}">Покупка</a></li>
+        <li><a href="{{ path('orders') }}">Список покупок</a></li>
+    {% endblock %}     
+    
+    {% block body %}   
+    <form action="{{ path('order_new') }}" method="post" id="form" role="form" novalidate>
+        
+        <div style="display: inline-block;">
+            <div class="code form-group {% if form.code.vars.errors|length > 0 %}has-error{% endif %}">
+                {{ form_label(form.code) }}
+                {{ form_widget(form.code, { 'attr': {
+                        'class': 'form-control red-tooltip',
+                        'placeholder' : 'Введите омер заказа',
+                        'maxlength' : '5'
+                    } 
+                }) }}
                 <div class="errors">
-                    {{ form_errors(form.cardNumber) }}
+                    {{ form_errors(form.code) }}
                 </div>
             </div>
 
-            <div class="form-group expirationDate">
-                <label>Срок годности</label><br />
-                {{ form_widget(form.cardMonth, { 'attr': {'class': 'form-control', 'placeholder' : 'ММ'} }) }}
-                {{ form_widget(form.cardYear, { 'attr': {'class': 'form-control', 'placeholder' : 'ГГ'} }) }}
-                <div class="form-group errors">
-                    {{ form_errors(form.cardMonth) }}
-                </div>
-                <div class="form-group errors">
-                    {{ form_errors(form.cardYear) }}
-                </div>
-            </div>
-
-            <div class="form-group cardOwner">
-                {{ form_label(form.cardOwner) }}<br />
-                {{ form_widget(form.cardOwner, { 'attr': {'class': 'form-control'} }) }}
+            <div class="summa form-group {% if form.summa.vars.errors|length > 0 %}has-error{% endif %}">
+                {{ form_label(form.summa) }}
+                {{ form_widget(form.summa, { 'attr': {
+                        'class': 'form-control red-tooltip', 
+                        'placeholder' : 'Введите сумму заказа',
+                        'data-html' : 'true',
+                    } 
+                }) }}
                 <div class="errors">
-                    {{ form_errors(form.cardOwner) }}
+                    {{ form_errors(form.summa) }}
                 </div>
-            </div>            
+            </div>
+
+            <div class="currency form-group {% if form.currency.vars.errors|length > 0 %}has-error{% endif %}">
+                {{ form_label(form.currency) }}
+                {{ form_widget(form.currency, { 'attr': {
+                        'class': 'form-control red-tooltip',
+                        'data-html' : 'true'
+                    }
+                }) }}
+                <div class="errors">
+                    {{ form_errors(form.currency) }}
+                </div>
+            </div>
         </div>
 
-        <div class="form-group cvv">
-            {{ form_label(form.cvv) }}<br />
-            {{ form_widget(form.cvv, { 'attr': {'class': 'form-control'} }) }}
-            <div class="errors">
-                {{ form_errors(form.cvv) }}
-            </div>
-        </div>   
+        <div style="display: inline-block; width: 300px;">
+            <div class="front">
+                <div class="cardNumber form-group {% if form.cardNumber.vars.errors|length > 0 %}has-error{% endif %}">
+                    {{ form_label(form.cardNumber) }}<br />
+                    {{ form_widget(form.cardNumber, { 'attr': {
+                            'class': 'form-control red-tooltip',
+                            'data-html' : 'true',
+                            'maxlength' : '19'
+                        } 
+                    }) }}
+                    <div class="errors">
+                        {{ form_errors(form.cardNumber) }}
+                    </div>
+                </div>
 
+                <div class="expirationDate form-group ">
+                    <label>Срок годности</label><br />
+                    <div class="cardMonth form-group {% if form.cardMonth.vars.errors|length > 0 %}has-error{% endif %}">
+                        {{ form_widget(form.cardMonth, { 'attr': {
+                                'class': 'form-control red-tooltip', 
+                                'placeholder' : 'ММ',
+                                'data-html' : 'true',
+                                'maxlength' : '2'
+                            }
+                        }) }}
+                        <div class="errors">
+                            {{ form_errors(form.cardMonth) }}
+                        </div>
+                    </div>
+                    <div class="cardYear form-group {% if form.cardYear.vars.errors|length > 0 %}has-error{% endif %}">
+                        {{ form_widget(form.cardYear, { 'attr': {
+                                'class': 'form-control red-tooltip',
+                                 'placeholder' : 'ГГ',
+                                 'data-html' : 'true',
+                                 'maxlength' : '2'
+                            }
+                        }) }}
+                        <div class="errors">
+                            {{ form_errors(form.cardYear) }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="cardOwner form-group {% if form.cardOwner.vars.errors|length > 0 %}has-error{% endif %}">
+                    {{ form_label(form.cardOwner) }}<br />
+                    {{ form_widget(form.cardOwner, { 'attr': {
+                            'class': 'form-control red-tooltip',
+                            'data-html' : 'true'
+                        }
+                    }) }}
+                    <div class="errors">
+                        {{ form_errors(form.cardOwner) }}
+                    </div>
+                </div>            
+            </div>
+            <div class="back">
+                <div class="cvv form-group {% if form.cvv.vars.errors|length > 0 %}has-error{% endif %}">
+                    {{ form_label(form.cvv) }}<br />
+                    {{ form_widget(form.cvv, { 'attr': {
+                            'class': 'form-control red-tooltip',
+                            'data-html' : 'true',
+                            'maxlength' : '4'
+                        }
+                    }) }}
+                    <div class="errors">
+                        {{ form_errors(form.cvv) }}
+                    </div>
+                </div>
+            </div>
+        </div>
+           
+        {{ form_row(form._token) }}
+                    
         <div class="form-group">
             {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary'} }) }}
         </div>
+        
     </form>
+        
     
+    {% endblock %}
+    
+    {% block javascripts %}
+        <script type="text/javascript">
+            
+            function Validate(elem, Validator)
+            {
+                var val = $('.' + elem + ' input').val();
+                var errors = "";
+                    
+                $('.' + elem).removeClass("has-error").removeClass("has-success");                
+                
+                errors = Validator(val);
+                
+                $('.' + elem + ' input').attr("data-original-title", errors).attr("data-html", true);
+                
+                if(errors !== "")
+                {
+                    $('.' + elem).addClass("has-error");
+                    return false;
+                }
+                else {
+                    $('.' + elem).addClass("has-success");
+                    return true;
+                }
+            }
+            
+            function ValidateCode(val){
+                var errors = "";
+                
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else if(!(Number(val) === parseInt(val, 10)) || val <= 0)
+                    errors += "Должен быть целым положительнм.<br />";
+                
+                return errors;                
+            }
+                        
+            function ValidateSumm(val)
+            {
+                var errors = "";
+
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else if(val != Number(val) || val <= 0)
+                    errors += "Должен быть положительнм.<br />";
+                
+                return errors;
+            }
+            
+            function ValidateCardNumber(val)
+            {
+                var errors = "";
+
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else {
+                    if(val.length < 13 || val.length > 19)
+                        errors += "Допустимая длина от 13 до 19 символов.<br />";
+                    if(val.match(/^\d+$/) == null)
+                        errors += "Может содержать только цыфры.<br />";
+                }
+                
+                return errors;
+            }
+            
+            function ValidateCardMonth(val)
+            {
+                var errors = "";
+
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else if(val.match(/^\d+$/) == null)
+                        errors += "Неверный формат.<br />";
+                else if(val < 1 || val > 12)
+                        errors += "Допустимый диапазон от 1 до 12.<br />";
+                
+                return errors;
+            }
+            
+            function ValidateCardYear(val)
+            {
+                var errors = "";
+                var year = new Date().getFullYear();
+                year = year.toString();
+                year = Number(year.substr(year.length - 2));
+
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else if(val.match(/^\d+$/) == null)
+                        errors += "Неверный формат.<br />";
+                else if(val < year || val > 99)
+                        errors += "Допустимый диапазон от " + year + " до 99.<br />";
+                
+                return errors;
+            }
+            
+            function ValidateCardOwner(val)
+            {
+                var errors = "";
+                
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                                
+                return errors;
+            }
+            
+            function ValidateCvv(val)
+            {
+                var errors = "";
+                
+                if(val == "" || val == null)
+                    errors += "Не может быть пустым.<br />";
+                else {
+                    if(val.length < 3 || val.length > 4)
+                        errors += "Допустимая длина от 3 до 4 символов.<br />";
+                    if(val.match(/^\d+$/) == null)
+                        errors += "Может содержать только цыфры.<br />";
+                }
+                                
+                return errors;
+            }
+            
+            
+            $(function(){
+                                   
+               $(".has-error").each(function(index, div){
+                  var errors = $(".errors", div).html();
+                  var $control = $("input", div);
+                  $control.attr("title", errors);
+               });
+               
+               $("#form input, #form select").tooltip({ 'placement' : 'bottom' });
+               
+               // Разрешаем ввод только цифр
+               $(".code input, .cardNumber input, .cardMonth input, .cardYear input, .cvv input").keydown(function(event) {
+                    // Разрешаем: backspace, delete, tab и escape
+                    if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 9 || event.keyCode == 27 || 
+                    // Разрешаем: Ctrl+A
+                    (event.keyCode == 65 && event.ctrlKey === true) || 
+                    // Разрешаем: home, end, влево, вправо
+                    (event.keyCode >= 35 && event.keyCode <= 39)) {
+                        return;
+                    }
+                    else {            
+                        if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+                            event.preventDefault(); 
+                        }   
+                    }
+                });
+                
+                // Валидация формы
+                $("#form").submit(function(event){
+                    var valid = true;
+                    valid &= Validate('code', ValidateCode);
+                    valid &= Validate('summa', ValidateSumm);
+                    valid &= Validate('cardNumber', ValidateCardNumber);
+                    valid &= Validate('cardMonth', ValidateCardMonth);
+                    valid &= Validate('cardYear', ValidateCardYear);
+                    valid &= Validate('cardOwner', ValidateCardOwner);
+                    valid &= Validate('cvv', ValidateCvv);
+                    
+                    if(!valid) event.preventDefault(); 
+                });
+                
+                $(".code input").change(function(){Validate('code', ValidateCode)});
+                $(".summa input").change(function(){Validate('summa', ValidateSumm)});
+                $(".cardNumber input").change(function(){Validate('cardNumber', ValidateCardNumber)});
+                $(".cardMonth input").change(function(){Validate('cardMonth', ValidateCardMonth)});
+                $(".cardYear input").change(function(){Validate('cardYear', ValidateCardYear)});
+                $(".cardOwner input").change(function(){Validate('cardOwner', ValidateCardOwner)});
+                $(".cvv input").change(function(){Validate('cvv', ValidateCvv)});             
+               
+            });
+        </script>
     {% endblock %}

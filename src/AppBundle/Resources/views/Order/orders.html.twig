@@ -1,0 +1,13 @@
+   	
+    {% extends '::base.html.twig' %}
+
+    {% block menu %}
+        <li><a href="{{ path('order_new') }}">Покупка</a></li>
+        <li class="active"><a href="{{ path('orders') }}">Список покупок</a></li>
+    {% endblock %}     
+    
+    {% block body %}  
+
+         Раздел в разработке.
+    
+    {% endblock %}

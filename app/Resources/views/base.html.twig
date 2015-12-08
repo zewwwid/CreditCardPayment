@@ -13,7 +13,8 @@
     <body>
         <style>
             .content {
-                padding: 50px;
+                padding: 20px;
+                background: none;
             }
             
             .code input,
@@ -32,23 +33,68 @@
                 margin-left: 50px;
                 margin-bottom: 0;
             }
-            .expirationDate input {
+            .expirationDate .form-group {
                 width: 60px;
                 
-                display: inline;
+                display: inline-block;
+                margin-bottom: 0;
                 
             }
             
             .front {
-                padding-top: 30px;
-                width: 300px; height: auto; border: solid 1px; border-radius: 5px;
+                position: relative;
+                left : 30px;
+                padding: 10px 0;
+                width: 300px; height: 200px; border: solid 1px; border-radius: 5px;
+                z-index: 2;
+                background: white;
             }
+            
+            .back {
+                position: relative;
+                left : 130px;
+                top: -170px;
+                padding: 10px 0;
+                width: 300px; height: 200px; border: solid 1px; border-radius: 5px;
+                z-index: 1;
+            }
+            
+            .errors {
+                display: none;
+            }
+            
+            .tooltip-inner {
+                text-align: left;
+                max-width: 350px;
+                font-weight: bold;
+            }
+                       
+            .red-tooltip + .tooltip > .tooltip-inner {background-color: #f00;}
+            .red-tooltip + .tooltip > .tooltip-arrow { border-bottom-color:#f00; }
+            
+            .cvv {
+                position: relative;
+                left: 210px;
+                top: 40px;
+                width: 75px;
+            }
+            
+            .cvv input {
+                width: 75px;
+            }
+            
+            .cardOvner input {
+                text-transform: uppercase;
+            }           
+            
+           
         </style>
         <div class="container-narrow" style="margin: 0 auto; max-width: 700px;">
             <div class="masthead">
                 <ul class="nav nav-pills pull-right">
-                    <li class="active"><a href="#">Купить</a></li>
-                    <li><a href="#">Список покупок</a></li>
+                    {% block menu %}
+                        
+                    {% endblock %}                    
                 </ul>
                 <h3 class="muted">credit-card-payment</h3>
             </div>

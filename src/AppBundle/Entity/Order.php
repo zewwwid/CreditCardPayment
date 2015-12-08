@@ -8,7 +8,6 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Заказ.
  * 
- * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order
@@ -27,10 +26,11 @@ class Order
      * @Assert\NotNull(message = "Не может быть пустым.")
      * @Assert\Regex(
      *     pattern="/^\d+$/",
-     *     match=false,
+     *     match=true,
      *     message="Должен быть целым положительнм."
      * )
      * @Assert\Range(min = 0, minMessage = "Должен быть целым положительнм.")
+     
      */
     protected $code;
 
@@ -39,8 +39,7 @@ class Order
      *
      * @ORM\Column(type="decimal", precision=15, scale=2, nullable=false)
      * @Assert\NotNull(message = "Не может быть пустым.")
-     * @Assert\Type(type="decimal", message = "Неверный формат.")
-     * @Assert\Range(min = 0, minMessage = "Должен быть целым положительнм.")
+     * @Assert\Range(min = 0, minMessage = "Должен быть положительнм.")
      */
     protected $summa;
     

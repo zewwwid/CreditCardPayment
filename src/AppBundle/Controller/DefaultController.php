@@ -18,11 +18,17 @@ class DefaultController extends Controller
      */
     public function indexAction(Request $request)
     {
-        // replace this example code with whatever you need
-        return $this->render('default/index.html.twig', array(
-            'base_dir' => realpath($this->container->getParameter('kernel.root_dir').'/..'),
-        ));
+        return $this->redirect($this->generateUrl('order_new'));
     }
+    
+    /**
+     * @Route("/orders", name="orders")
+     */
+    public function ordersAction(Request $request)
+    {
+        return $this->render('AppBundle:Order:orders.html.twig');
+    }
+    
     
     /**
      * @Route("/orders/new", name="order_new")
@@ -32,23 +38,18 @@ class DefaultController extends Controller
         $order  = new Order();
         $form = $this->createForm(OrderType::class, $order);
         $form->handleRequest($request);
-//var_dump($order->getCode());
-        if ($form->isValid()) {
-            
-            
-            //$em = $this->getDoctrine()->getManager();
-            //$em->persist($entity);
-            //$em->flush();
-
-            //return $this->redirect($this->generateUrl('admin_brand_show', array('id' => $entity->getId())));
-            return new Response("good");
-        }
-
-        //return new Response("bad");
         
+        if ($form->isValid()) {
+        
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($order);
+            $em->flush();
+            
+            return $this->redirect($this->generateUrl('order_new', array('success' => true)));
+        }
+               
         return $this->render('AppBundle:Order:new.html.twig', array(
             'form'   => $form->createView()
-        ));    
-        
+        ));
     }
 }
