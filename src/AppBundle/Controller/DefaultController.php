@@ -25,7 +25,7 @@ class DefaultController extends Controller
     {
         $orders = $this->getDoctrine()
             ->getRepository('AppBundle:Order')
-            ->findAll();
+            ->getAll();
         
         return $this->render('AppBundle:Order:orders.html.twig', array('orders' => $orders));
     }    
@@ -59,13 +59,14 @@ class DefaultController extends Controller
     public function editAction($pk)
     {       
         $em = $this->getDoctrine()->getManager();       
-        $order = $em->getRepository('AppBundle:Order')->findOneBy(array('primaryKey' => $pk));
+        $order = $em->getRepository('AppBundle:Order')->getByPK($pk);
 
         if (!$order) {
             throw $this->createNotFoundException('Unable to find Order entity.');
         }
 
         $form = $this->createForm(OrderType::class, $order);
+        //var_dump($form["save"]); exit();//->setLabel("Сохрнть");
         
         return $this->render('AppBundle:Order:new.html.twig', array(
             'pk' => $pk,
@@ -79,7 +80,7 @@ class DefaultController extends Controller
     public function updateAction(Request $request, $pk)
     {
         $em = $this->getDoctrine()->getManager();
-        $order = $em->getRepository('AppBundle:Order')->findOneBy(array('primaryKey' => $pk));
+        $order = $em->getRepository('AppBundle:Order')->getByPK($pk);
 
         if (!$order) {
             throw $this->createNotFoundException('Unable to find Order entity.');

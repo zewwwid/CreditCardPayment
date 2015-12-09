@@ -124,7 +124,12 @@
         {{ form_row(form._token) }}
                     
         <div class="form-group">
-            {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary'} }) }}
+            {% if pk is not defined %}
+                {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary'} }) }}
+            {% else %}
+                {{ form_widget(form.save, { 'attr': {'class': 'btn btn-primary'}, 'label' : 'Сохранть'}) }}
+            {% endif %}            
+            
         </div>
         
     </form>
