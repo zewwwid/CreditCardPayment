@@ -8,6 +8,61 @@
     
     {% block body %}  
 
-         Раздел в разработке.
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>
+                        Действие
+                    </th>
+                    <th>
+                        Номер заказа
+                    </th>
+                    <th>
+                        Сумма
+                    </th>
+                    <th>
+                        Валюта
+                    </th>
+                    <th>
+                        Номер карты
+                    </th>
+                    <th>
+                        Срок
+                    </th>
+                    <th>
+                        Владелец
+                    </th>
+                </tr>
+            </thead>
+        
+            <tbody>
+                {% for order in orders %}
+                    <tr>
+                        <td>
+                            <a type="button" class="btn btn-default btn-xs" titless="Редактироать" href="{{ path('order_edit' , {'pk' : order.primaryKey}) }}"><span class="glyphicon glyphicon-edit"></span></a>
+                            <a type="button" class="btn btn-default btn-xs" title="Удалить" href="{{ path('order_delete' , {'pk' : order.primaryKey}) }}" onclick="return confirm('Вы действительно хотите удалить выбранную запись?');"><span class="glyphicon glyphicon-remove"></span></a>
+                        </td>
+                        <td>
+                            {{ order.code }}
+                        </td>
+                        <td>
+                            {{ order.summa }}
+                        </td>
+                        <td>
+                            {{ order.currency }}
+                        </td>
+                        <td>
+                            {{ order.cardNumber }}
+                        </td>
+                        <td>
+                            {{ order.cardMonth }} / {{ order.cardYear }}
+                        </td>
+                        <td>
+                            {{ order.cardOwner }}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+    </table>
     
     {% endblock %}

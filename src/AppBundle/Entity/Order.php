@@ -8,6 +8,7 @@ use Symfony\Component\Validator\Constraints as Assert;
 /**
  * Заказ.
  * 
+ * @ORM\Entity(repositoryClass="AppBundle\Repository\OrderRepository")
  * @ORM\Table(name="orders")
  */
 class Order

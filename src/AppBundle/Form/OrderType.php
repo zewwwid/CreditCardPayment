@@ -7,6 +7,7 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 
 class OrderType extends AbstractType
 {
@@ -15,7 +16,7 @@ class OrderType extends AbstractType
         $builder
             ->add('code', TextType::class, array('label' => 'Номер заказа'))
             ->add('summa', TextType::class, array('label' => 'Сумма'))
-            ->add('currency', null, array('label' => 'Валюта'))
+            ->add('currency', EntityType::class, array('class' => 'AppBundle:Currency', 'choice_label' => 'name', 'label' => 'Валюта'))
             ->add('cardNumber', TextType::class, array('label' => 'Номер карты'))
             ->add('cardOwner', TextType::class, array('label' => 'Владелец')) 
             ->add('cardMonth', TextType::class)

@@ -8,14 +8,14 @@
     {% endblock %}     
     
     {% block body %}   
-    <form action="{{ path('order_new') }}" method="post" id="form" role="form" novalidate>
+    <form action="{% if pk is not defined %}{{ path('order_new') }}{% else %}{{ path('order_update', { 'pk' : pk }) }}{% endif %}" method="post" id="form" role="form" novalidate>
         
         <div style="display: inline-block;">
             <div class="code form-group {% if form.code.vars.errors|length > 0 %}has-error{% endif %}">
                 {{ form_label(form.code) }}
                 {{ form_widget(form.code, { 'attr': {
                         'class': 'form-control red-tooltip',
-                        'placeholder' : 'Введите омер заказа',
+                        'placeholder' : 'Введите номер заказа',
                         'maxlength' : '5'
                     } 
                 }) }}
